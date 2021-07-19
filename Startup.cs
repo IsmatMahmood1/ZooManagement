@@ -42,7 +42,7 @@ namespace ZooManagement
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ZooManagement", Version = "v1" });
             });
 
-            services.AddTransient<IZooRepo, ZooRepo>();
+            //services.AddTransient<IZooRepo, ZooRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

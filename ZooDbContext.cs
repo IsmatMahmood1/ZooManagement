@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ZooManagement.Models;
+using ZooManagement.Models.Database;
 
 namespace ZooManagement
 {
