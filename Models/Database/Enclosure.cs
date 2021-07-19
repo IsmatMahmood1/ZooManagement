@@ -4,23 +4,26 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZooManagement.Models.Database
 {
-    public enum ClassificationType
+    public enum EnclosureType
     {
-        Mammal,
+        Lion,
+        Aviary,
         Reptile,
-        Bird,
-        Insect,
-        Fish,
+        Giraffe,
+        Hippo,
         Invertebrate
     }
 
-    public class Classification
+    public class Enclosure
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public ClassificationType Type { get; set; }
+        public EnclosureType Type { get; set; }
+        
+        public int Capacity { get; set; }
+        public int Count { get; set; }
 
     }
 }
