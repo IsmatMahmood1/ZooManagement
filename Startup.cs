@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,15 +24,26 @@ namespace ZooManagement
 
         public IConfiguration Configuration { get; }
 
+        public static readonly ILoggerFactory
+           LoggerFactory = Microsoft.Extensions.Logging.LoggerFactory.Create(builder => { builder.AddConsole(); });
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ZooDbContext>(options =>
+            {
+                options.UseLoggerFactory(LoggerFactory);
+                options.UseSqlite("Data Source=Zoo.db");
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ZooManagement", Version = "v1" });
             });
+
+            services.AddTransient<IPostsRepo, PostsRepo>();
+            services.AddTransient<IUsersRepo, UsersRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
