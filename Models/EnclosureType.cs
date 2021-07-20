@@ -2,7 +2,7 @@
 {
     public enum EnclosureType
     {
-        Lion,
+        Lion = 1,
         Aviary,
         Reptile,
         Giraffe,

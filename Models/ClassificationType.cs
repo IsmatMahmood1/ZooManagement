@@ -2,7 +2,7 @@
 {
     public enum ClassificationType
     {
-        Mammal,
+        Mammal = 1,
         Reptile,
         Bird,
         Insect,

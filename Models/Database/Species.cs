@@ -8,7 +8,9 @@ namespace ZooManagement.Models.Database
         public int Id { get; set; }
 
         public string Type { get; set; }
-f
+
+        public Classification Classification { get; set; }
+
         public List<Animal> Animal { get; set; }
     }
 }
