@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZooManagement.Models.Api;
+using ZooManagement.Repositories;
 
 namespace ZooManagement.Controllers
 {
@@ -12,10 +13,13 @@ namespace ZooManagement.Controllers
     public class AnimalController : ControllerBase
     {
         private readonly ILogger<AnimalController> _logger;
+        private readonly IZooRepo _zooRepo;
 
-        public AnimalController(ILogger<AnimalController> logger)
+
+        public AnimalController(ILogger<AnimalController> logger, IZooRepo zooRepo)
         {
             _logger = logger;
+            _zooRepo = zooRepo;
         }
 
         [HttpGet("{id}")]
