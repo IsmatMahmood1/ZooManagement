@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
+using ZooManagement.Data;
 
 namespace ZooManagement
 {
@@ -22,20 +24,12 @@ namespace ZooManagement
             var context = services.GetRequiredService<ZooDbContext>();
             context.Database.EnsureCreated();
 
-            //if (!context.Users.Any())
-            //{
-            //    var users = SampleUsers.GetUsers();
-            //    context.Users.AddRange(users);
-            //    context.SaveChanges();
-
-            //    var posts = SamplePosts.GetPosts();
-            //    context.Posts.AddRange(posts);
-            //    context.SaveChanges();
-
-            //    var interactions = SampleInteractions.GetInteractions();
-            //    context.Interactions.AddRange(interactions);
-            //    context.SaveChanges();
-            //}
+            if (!context.Animals.Any())
+            {
+                var animals = SampleData.GetAnimals();
+                context.Animals.AddRange(animals);
+                context.SaveChanges();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
