@@ -1,40 +1,49 @@
-﻿//using System.Collections.Generic;
-//using System.Linq;
-//using ZooManagement.Models.Database;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using ZooManagement.Models.Database;
+using ZooManagement.Data;
 
-//namespace ZooManagement.Data
-//{
-//    public static class SampleData
-//    {
-//        public static int NumberOfUsers = 100;
+namespace ZooManagement.Data
+{
+    public class SampleData
+    {
 
-//        private static IList<IList<string>> _data = new List<IList<string>>
-//        {
-//            new List<string> { "Kania", "Placido", "kplacido0", "kplacido0@qq.com" },
-//            new List<string> { "Scotty", "Gariff", "sgariff1", "sgariff1@biblegateway.com" },
-//            new List<string> { "Colly", "Burgiss", "cburgiss2", "cburgiss2@amazon.co.uk" },
-//            new List<string> { "Barnie", "Percival", "bpercival3", "bpercival3@cmu.edu" },
-//            new List<string> { "Brandon", "Narraway", "bnarraway4", "bnarraway4@trellian.com" },
-//        };
+        public static void GenerateData()
+        { }
+            private List<int> slassificationType = new List<int> { 1, 2, 3, 4, 5, 6 };
+            private List<int> sexType = new List<int> { 1, 2 };
+            private int enclosureType = 1;
+            private List<string> speciesType = new List<string> { "Lion", "Hippo", "Gorilla", "Spider", "Penguin", "Octopus", "Zebra", "Bear", "Bat", "Parrot" };
 
-//        public static IEnumerable<User> GetUsers()
-//        {
-//            return Enumerable.Range(0, NumberOfUsers).Select(CreateRandomUser);
-//        }
+            private static IList<IList<string>> animal = new List<IList<string>>
+            {
+                new List<string> {"George", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Bob", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Todd", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Tom", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Dave", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Megan", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Boris", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Daisy", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Rachel", DateTime.Now.ToString(), DateTime.Now.ToString() },
+                new List<string> {"Fred", DateTime.Now.ToString(), DateTime.Now.ToString() }
+            };
 
-//        private static User CreateRandomUser(int index)
-//        {
-//            return new User
-//            {
-//                FirstName = _data[index][0],
-//                LastName = _data[index][1],
-//                Username = _data[index][2],
-//                Email = _data[index][3],
-//                ProfileImageUrl = ImageGenerator.GetProfileImage(_data[index][2]),
-//                CoverImageUrl = ImageGenerator.GetCoverImage(index),
-//                Salt = salt,
-//                HashedPassword = UsersRepo.CreateHash(salt, "Password1")
-//            };
-//        }
-//    }
-//}
+        private static Animal CreateRandomAnimal(int index)
+        {
+            return new Animal
+            {
+                Name = animal[index][0],
+                DateOfBirth = DateTime.Parse(animal[index][1]),
+                DateAcquired = DateTime.Parse(animal[index][2]),
+                Sex = new Random()
+            }
+            }
+    }
+        
+
+        
+}
+       
+

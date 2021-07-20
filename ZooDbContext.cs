@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using ZooManagement.Models;
 using ZooManagement.Models.Database;
 
 namespace ZooManagement
 {
-    public class ZooDbContext: DbContext
+    public class ZooDbContext : DbContext
     {
         public ZooDbContext(DbContextOptions<ZooDbContext> options) : base(options) { }
 

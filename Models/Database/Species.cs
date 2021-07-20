@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ZooManagement.Models.Database
 {
@@ -11,8 +8,7 @@ namespace ZooManagement.Models.Database
         public int Id { get; set; }
 
         public string Type { get; set; }
-        public Classification Classification { get; set; }
-
+f
         public List<Animal> Animal { get; set; }
     }
 }
