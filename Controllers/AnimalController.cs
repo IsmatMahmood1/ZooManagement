@@ -30,6 +30,15 @@ namespace ZooManagement.Controllers
             return new AnimalApi(animal);
         }
 
+        [HttpPost("add")]
+        public void Post()
+        {
+            //TODO
+            //make postrequest object
+            //make repo function to turn it into objects to add to the db.
+            //Part 4 - add checks on whether the enclosure limit has been reached to halt execution. 
+        }
+
         [Route("species")]
         [HttpGet]
         public IEnumerable<string> GetSpecies()
