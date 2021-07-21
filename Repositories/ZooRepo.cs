@@ -59,9 +59,6 @@ namespace ZooManagement.Repositories
             return OrderAnimals(animals, searchRequest.FilterOrderDesending, searchRequest.FilterOrderProperty)
            .Skip((searchRequest.Page - 1) * searchRequest.PageSize)
            .Take(searchRequest.PageSize);
-
-            //discuss with oskar how to get age from dbmodel?
-
         }
 
         public IList<DateTime> FilterAgeRange(int age)
