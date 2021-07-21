@@ -9,7 +9,7 @@ using ZooManagement.Repositories;
 namespace ZooManagement.Controllers
 {
     [ApiController]
-    [Route("/animal")]
+    [Route("[controller]")]
     public class AnimalController : ControllerBase
     {
         private readonly ILogger<AnimalController> _logger;
@@ -23,12 +23,13 @@ namespace ZooManagement.Controllers
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<AnimalApi> Get(int id)
+        public AnimalApi Get(int id)
         {
+            var animal= _zooRepo.SearchAnimalById(id);
             // lookup the id in the database
             // convert the animaldBmodel to API model 
             //return API model (do we need to json?)
-            return
+            return new AnimalApi(animal);
         }
     }
 }
