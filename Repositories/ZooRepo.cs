@@ -44,30 +44,62 @@ namespace ZooManagement.Repositories
 
         public IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest)
         {
+            var animals = _context.Animals
+           .Where(a => searchRequest.FilterSpecies == "All" || a.Species.Type == searchRequest.FilterSpecies)
+           .Where(a => searchRequest.FilterName == "All" || a.Name == searchRequest.FilterName)
+           .Where(a => searchRequest.FilterAquired == default(DateTime) || a.DateAcquired == searchRequest.FilterAquired)
+           .Where(a => searchRequest.FilterClassification == null || a.Species.Classification.Type == searchRequest.FilterClassification)
+           .Include(a => a.Species)
+           .ThenInclude(s => s.Classification)
+           .Include(a => a.Enclosure);
 
-
-            return _context.Animals
-               .OrderByDescending(a => a.Species)
-               .Where(a => searchRequest.FilterSpecies == "All" || a.Species.Type == searchRequest.FilterSpecies)
-               .Where(a => searchRequest.FilterName == "All" || a.Name == searchRequest.FilterName)
-               .Where(a => searchRequest.FilterAquired == default(DateTime) || a.DateAcquired == searchRequest.FilterAquired)
-               .Where(a => searchRequest.FilterClassification == null || a.Species.Classification.Type == searchRequest.FilterClassification)
-               .Include(a => a.Species)
-               .ThenInclude(s => s.Classification)
-               .Include(a => a.Enclosure)
-               .Skip((searchRequest.Page - 1) * searchRequest.PageSize)
-               .Take(searchRequest.PageSize);
-
-            //    FilterSpecies { get; set; } = "All";
-            //public string FilterClassification { get; set; } = "All";
-            //public string FilterAge { get; set; } = "All";
-            //public string FilterName { get; set; } = "All";
-            //public string FilterAquired { get; set; } = "All";
-            //public string FilterOrderProperty { get; set; } = "Name";
-            //public bool FilterOrderDesending { get; set; } = true;
+            return OrderAnimals(animals, searchRequest.FilterOrderDesending, searchRequest.FilterOrderProperty)
+           .Skip((searchRequest.Page - 1) * searchRequest.PageSize)
+           .Take(searchRequest.PageSize);
 
             //discuss with oskar how to get age from dbmodel?
-            //ordering by property@ end
+
+        }
+
+        public IEnumerable<Animal> OrderAnimals(IEnumerable<Animal> animals, bool filterOrderDescending, string filterOrderProperty)
+        {
+            if (filterOrderDescending == false)
+            {
+                switch (filterOrderProperty)
+                {
+                    case "DateAcquired":
+                        animals = animals.OrderBy(a => a.DateAcquired);
+                        break;
+                    case "Classification":
+                        animals = animals.OrderBy(a => a.Species.Classification.Type.ToString());
+                        break;
+                    case "AnimalName":
+                        animals = animals.OrderBy(a => a.Name);
+                        break;
+                    default:
+                        animals = animals.OrderBy(a => a.Species.Type.ToString());
+                        break;
+                }
+            }
+            else
+            {
+                switch (filterOrderProperty)
+                {
+                    case "DateAcquired":
+                        animals = animals.OrderByDescending(a => a.DateAcquired);
+                        break;
+                    case "Classification":
+                        animals = animals.OrderByDescending(a => a.Species.Classification.Type.ToString());
+                        break;
+                    case "AnimalName":
+                        animals = animals.OrderByDescending(a => a.Name);
+                        break;
+                    default:
+                        animals = animals.OrderByDescending(a => a.Species.Type.ToString());
+                        break;
+                }
+            }
+            return animals;
         }
     }
 }

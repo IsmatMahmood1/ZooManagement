@@ -15,8 +15,8 @@ namespace ZooManagement.Request
         public string FilterAge { get; set; } = "All";
         public string FilterName { get; set; } = "All";
         public DateTime FilterAquired { get; set; } = default(DateTime);
-        public string FilterOrderProperty { get; set; } = "Name";
-        public bool FilterOrderDesending { get; set; } = true;
+        public string FilterOrderProperty { get; set; } = "SpeciesName";
+        public bool FilterOrderDesending { get; set; } = false;
     }
 }
 
