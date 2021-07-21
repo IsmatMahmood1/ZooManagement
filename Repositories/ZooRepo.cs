@@ -44,9 +44,12 @@ namespace ZooManagement.Repositories
 
         public IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest)
         {
+            var ageRange = FilterAgeRange(searchRequest.FilterAge);
+
             var animals = _context.Animals
            .Where(a => searchRequest.FilterSpecies == "All" || a.Species.Type == searchRequest.FilterSpecies)
            .Where(a => searchRequest.FilterName == "All" || a.Name == searchRequest.FilterName)
+           .Where(a => searchRequest.FilterAge == -1 || (a.DateOfBirth > ageRange[0] && a.DateOfBirth < ageRange[1]))
            .Where(a => searchRequest.FilterAquired == default(DateTime) || a.DateAcquired == searchRequest.FilterAquired)
            .Where(a => searchRequest.FilterClassification == null || a.Species.Classification.Type == searchRequest.FilterClassification)
            .Include(a => a.Species)
@@ -59,6 +62,16 @@ namespace ZooManagement.Repositories
 
             //discuss with oskar how to get age from dbmodel?
 
+        }
+
+        public IList<DateTime> FilterAgeRange(int age)
+        {
+            var today = DateTime.Now;
+            var oldestAgeDate = today.AddYears(-1 * age);
+            var youngestAgeDate = today.AddDays(-1);
+            youngestAgeDate.AddYears(-1 * (age - 1));
+
+            return new List<DateTime> { youngestAgeDate, oldestAgeDate };
         }
 
         public IEnumerable<Animal> OrderAnimals(IEnumerable<Animal> animals, bool filterOrderDescending, string filterOrderProperty)

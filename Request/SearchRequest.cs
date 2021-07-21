@@ -12,7 +12,7 @@ namespace ZooManagement.Request
         public int PageSize { get; set; } = 10;
         public string FilterSpecies { get; set; } = "All";
         public ClassificationType? FilterClassification { get; set; }
-        public string FilterAge { get; set; } = "All";
+        public int FilterAge { get; set; } = -1;
         public string FilterName { get; set; } = "All";
         public DateTime FilterAquired { get; set; } = default(DateTime);
         public string FilterOrderProperty { get; set; } = "SpeciesName";
