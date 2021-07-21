@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ZooManagement.Models.Api;
 using ZooManagement.Repositories;
+using ZooManagement.Request;
 
 namespace ZooManagement.Controllers
 {
@@ -26,10 +27,25 @@ namespace ZooManagement.Controllers
         public AnimalApi Get(int id)
         {
             var animal= _zooRepo.SearchAnimalById(id);
-            // lookup the id in the database
-            // convert the animaldBmodel to API model 
-            //return API model (do we need to json?)
             return new AnimalApi(animal);
         }
+
+        [Route("species")]
+        [HttpGet]
+        public IEnumerable<string> GetSpecies()
+        {
+            return _zooRepo.GetAllSpecies();
+        }
+        
+        [Route("search")]
+        [HttpGet]
+        public IEnumerable<AnimalApi> FilteredSearchAnimals ([FromQuery] SearchRequest searchRequest)
+        {
+            var Animals = _zooRepo.SearchAnimalsByFilters(searchRequest);
+
+            return Animals.Select(a => new AnimalApi(a));
+        }
+
+
     }
 }

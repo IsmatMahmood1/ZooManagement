@@ -17,6 +17,7 @@ namespace ZooManagement.Models.Api
         public int EnclosureId { get; set; }
         public string EnclosureType { get; set; }
         public string SpeciesName { get; set; }
+        public string SpeciesClassification { get; set; }
 
         public AnimalApi(Animal animalDb)
         {
@@ -25,12 +26,12 @@ namespace ZooManagement.Models.Api
             Sex = animalDb.Sex.ToString();
             Age = GetAge(animalDb.DateOfBirth);
             SpeciesName = animalDb.Species.Type;
+            SpeciesClassification = animalDb.Species.Classification.Type.ToString();
             DateOfBirth = animalDb.DateOfBirth;
             DateAcquired = animalDb.DateAcquired;
             EnclosureId = animalDb.Enclosure.Id;
             EnclosureType = animalDb.Enclosure.Type.ToString();
         }
-
         private int GetAge(DateTime birthdate)
         {
             var today = DateTime.Today;
