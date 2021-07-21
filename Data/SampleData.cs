@@ -123,16 +123,16 @@ namespace ZooManagement.Data
         {
             var enclosure = GenerateEnclosure(enclosureType, 10);
             var classifications =  classificationType.Select(ct => GenerateClassification(ct)).ToList();
-            var species = speciesType.Select(st => GenerateSpecies(st, classifications[0])).ToList();
+            var species = speciesType.Select(st => GenerateSpecies(st, classifications)).ToList();
             return Enumerable.Range(0, 100).Select( i => CreateRandomAnimal(i, species, enclosure));
         }
 
-        public static Species GenerateSpecies(string type, Classification classification)
+        public static Species GenerateSpecies(string type, IList<Classification> classifications)
         {
             return new Species
             {
                 Type = type,
-                Classification = classification
+                Classification = classifications[new Random().Next(6)]
             };
         }
 
@@ -161,7 +161,7 @@ namespace ZooManagement.Data
                 Name = animal[index][0],
                 DateOfBirth = DateTime.Parse(animal[index][1]),
                 DateAcquired = DateTime.Parse(animal[index][2]),
-                Sex = (Sex)new Random().Next(1, 2),
+                Sex = (Sex) new Random().Next(1,3),
                 Species = species[new Random().Next(9)],
                 Enclosure = enclosure
             };
