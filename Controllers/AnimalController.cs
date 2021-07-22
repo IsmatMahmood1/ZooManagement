@@ -16,7 +16,6 @@ namespace ZooManagement.Controllers
         private readonly ILogger<AnimalController> _logger;
         private readonly IZooRepo _zooRepo;
 
-
         public AnimalController(ILogger<AnimalController> logger, IZooRepo zooRepo)
         {
             _logger = logger;

@@ -11,7 +11,6 @@ namespace ZooManagement.Data
     {
         private static List<ClassificationType> classificationType = new List<ClassificationType> { ClassificationType.Mammal, ClassificationType.Bird, ClassificationType.Fish, ClassificationType.Reptile, 
             ClassificationType.Insect, ClassificationType.Invertebrate };
-        private static List<Sex> sexType = new List<Sex> { Sex.Male, Sex.Female };
         private static  EnclosureType enclosureType = EnclosureType.Lion;
         private static List<string> speciesType = new List<string> { "Lion", "Hippo", "Gorilla", "Spider", "Penguin", "Octopus", "Zebra", "Bear", "Bat", "Parrot" };
 
@@ -121,7 +120,7 @@ namespace ZooManagement.Data
 
         public static IEnumerable<Animal> GetAnimals()
         {
-            var enclosure = GenerateEnclosure(enclosureType, 10);
+            var enclosure = GenerateEnclosure(enclosureType);
             var classifications =  classificationType.Select(ct => GenerateClassification(ct)).ToList();
             var species = speciesType.Select(st => GenerateSpecies(st, classifications)).ToList();
             return Enumerable.Range(0, 100).Select( i => CreateRandomAnimal(i, species, enclosure));
@@ -144,15 +143,14 @@ namespace ZooManagement.Data
             };
         }
 
-        public static Enclosure GenerateEnclosure(EnclosureType type, int capacity)
+        public static Enclosure GenerateEnclosure(EnclosureType type)
         {
             return new Enclosure
             {
                 Type = type,
-                Capacity = capacity
+                Capacity = EnclosureDictionary.keyValues[type]
             };
         }
-
 
         private static Animal CreateRandomAnimal(int index, IList<Species> species, Enclosure enclosure)
         {

@@ -16,7 +16,6 @@ namespace ZooManagement.Repositories
         IEnumerable<string> GetAllSpecies();
         string AddAnimal(AddAnimalRequest addAnimalRequest);
         IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest);
-
     }
 
     public class ZooRepo : IZooRepo
@@ -70,9 +69,8 @@ namespace ZooManagement.Repositories
                 Enclosure = enclosure,
                 Species = existingSpecies
             });
-
             _context.SaveChanges();
-            return "Animal Successfully to Database";
+            return "Animal Successfully added to Database";
         }
 
         public IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest)

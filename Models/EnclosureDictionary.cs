@@ -5,16 +5,16 @@ using System.Threading.Tasks;
 
 namespace ZooManagement.Models
 {
-    public class EnclosureDictionary
+    public static class EnclosureDictionary
     {
-        public Dictionary<string, int> keyValues = new Dictionary<string, int>()
+        public static  Dictionary<EnclosureType, int> keyValues = new Dictionary<EnclosureType, int>()
         {
-            {EnclosureType.Lion.ToString(), 10},
-            {EnclosureType.Giraffe.ToString(), 6},
-            {EnclosureType.Hippo.ToString(), 10},
-            {EnclosureType.Aviary.ToString(), 50},
-            {EnclosureType.Reptile.ToString(), 40},
-            {EnclosureType.Invertebrate.ToString(), 100}
+            {EnclosureType.Lion, 10},
+            {EnclosureType.Giraffe, 6},
+            {EnclosureType.Hippo, 10},
+            {EnclosureType.Aviary, 50},
+            {EnclosureType.Reptile, 40},
+            {EnclosureType.Invertebrate, 100}
         };
     }
 }
