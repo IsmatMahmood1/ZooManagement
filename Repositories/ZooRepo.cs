@@ -50,7 +50,7 @@ namespace ZooManagement.Repositories
             {
                 //throw new Exception("Enclosure Capacity Already Reached");
                 Console.WriteLine("Enclosure capacity already reached, animal not added to Zoo.db");
-                return null;
+                return "Enclosure capacity already reached, animal not added to Zoo.db";
             }
 
             var species = GetSpeciesByType(addAnimalRequest.Species) ?? CreateAndReturnSpecies(addAnimalRequest.Species, addAnimalRequest.Classification);
@@ -65,7 +65,7 @@ namespace ZooManagement.Repositories
                 Species = species
             });
             _context.SaveChanges();
-            return "Animal Successfully added to Database";
+            return "Animal Successfully added to Zoo.db";
         }
 
         public Enclosure GetEnclosureByType(EnclosureType enclosureType)
