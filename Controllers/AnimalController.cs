@@ -31,12 +31,10 @@ namespace ZooManagement.Controllers
         }
 
         [HttpPost("add")]
-        public void AddAnimal([FromQuery] AddAnimalRequest addAnimalRequest)
+        public string AddAnimal([FromQuery] AddAnimalRequest addAnimalRequest)
         {
-            //TODO
-            //make postrequest object
-            //make repo function to turn it into objects to add to the db.
-            //Part 4 - add checks on whether the enclosure limit has been reached to halt execution. 
+            var AddSuccess = _zooRepo.AddAnimal(addAnimalRequest);
+            return AddSuccess;
         }
 
         [Route("species")]

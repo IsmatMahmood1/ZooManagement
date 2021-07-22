@@ -14,6 +14,7 @@ namespace ZooManagement.Repositories
     {
         Animal SearchAnimalById(int id);
         IEnumerable<string> GetAllSpecies();
+        string AddAnimal(AddAnimalRequest addAnimalRequest);
         IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest);
 
     }
@@ -42,7 +43,7 @@ namespace ZooManagement.Repositories
             return _context.Species.Select(s => s.Type);
         }
 
-        public void AddAnimal(AddAnimalRequest addAnimalRequest)
+        public string AddAnimal(AddAnimalRequest addAnimalRequest)
         {
             var enclosure = _context.Enclosures
                 .Where(e => e.Type == addAnimalRequest.Enclosure).FirstOrDefault();
@@ -67,6 +68,8 @@ namespace ZooManagement.Repositories
                 Enclosure = enclosure,
                 Species = existingSpecies
             });
+            _context.SaveChanges();
+            return "Animal Successfully to Database";
         }
 
         public IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest)
