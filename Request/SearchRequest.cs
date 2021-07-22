@@ -14,6 +14,7 @@ namespace ZooManagement.Request
         public ClassificationType? FilterClassification { get; set; }
         public int FilterAge { get; set; } = -1;
         public string FilterName { get; set; } = "All";
+        public EnclosureType? FilterEnclosure { get; set; }
         public DateTime FilterAquired { get; set; } = default(DateTime);
         public string FilterOrderProperty { get; set; } = "SpeciesName";
         public bool FilterOrderDesending { get; set; } = false;

@@ -138,6 +138,7 @@ namespace ZooManagement.Repositories
            .Where(a => searchRequest.FilterAge == -1 || (a.DateOfBirth > ageRange[0] && a.DateOfBirth < ageRange[1]))
            .Where(a => searchRequest.FilterAquired == default(DateTime) || a.DateAcquired == searchRequest.FilterAquired)
            .Where(a => searchRequest.FilterClassification == null || a.Species.Classification.Type == searchRequest.FilterClassification)
+           .Where(a => searchRequest.FilterEnclosure == null || a.Enclosure.Type == searchRequest.FilterEnclosure)
            .Include(a => a.Species)
            .ThenInclude(s => s.Classification)
            .Include(a => a.Enclosure);
@@ -172,6 +173,9 @@ namespace ZooManagement.Repositories
                     case "AnimalName":
                         animals = animals.OrderBy(a => a.Name);
                         break;
+                    case "Enclosure":
+                        animals = animals.OrderBy(a => a.Enclosure.Type.ToString());
+                        break;
                     default:
                         animals = animals.OrderBy(a => a.Species.Type.ToString());
                         break;
@@ -189,6 +193,9 @@ namespace ZooManagement.Repositories
                         break;
                     case "AnimalName":
                         animals = animals.OrderByDescending(a => a.Name);
+                        break;
+                    case "Enclosure":
+                        animals = animals.OrderByDescending(a => a.Enclosure.Type.ToString());
                         break;
                     default:
                         animals = animals.OrderByDescending(a => a.Species.Type.ToString());
