@@ -44,25 +44,28 @@ namespace ZooManagement.Repositories
 
         public void AddAnimal(AddAnimalRequest addAnimalRequest)
         {
-            var enclosures = _context.Enclosures
+            var enclosure = _context.Enclosures
                 .Where(e => e.Type == addAnimalRequest.Enclosure).FirstOrDefault();
-            if (enclosures.Capacity <= enclosures.Count)
+
+            if (enclosure.Capacity <= enclosure.Count)
             {
                 throw new Exception("Enclosure Capacity Already Reached");
             }
+
+            var existingSpecies = _context.Species
+                .Where(s => s.Type == addAnimalRequest.Species).FirstOrDefault();
+
+            // Need to add in validation to make sure species exists otherwise we might not get back an object and need
+            // to create one which potentially involves creating a classificaiton. 
+
             var insertAnimal = _context.Animals.Add(new Animal
             {
                 Name = addAnimalRequest.Name,
-
                 DateOfBirth = addAnimalRequest.DateOfBirth,
-
                 DateAcquired = addAnimalRequest.DateAquired,
-
                 Sex = addAnimalRequest.Sex,
-
-                Enclosure = addAnimalRequest.Enclosure,
-
-                Species = addAnimalRequest.Species
+                Enclosure = enclosure,
+                Species = existingSpecies
             });
         }
 

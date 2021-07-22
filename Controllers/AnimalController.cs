@@ -33,7 +33,6 @@ namespace ZooManagement.Controllers
         [HttpPost("add")]
         public void AddAnimal([FromQuery] AddAnimalRequest addAnimalRequest)
         {
-            
             //TODO
             //make postrequest object
             //make repo function to turn it into objects to add to the db.
