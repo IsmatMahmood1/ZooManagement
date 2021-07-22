@@ -42,6 +42,30 @@ namespace ZooManagement.Repositories
             return _context.Species.Select(s => s.Type);
         }
 
+        public void AddAnimal(AddAnimalRequest addAnimalRequest)
+        {
+            var enclosures = _context.Enclosures
+                .Where(e => e.Type == addAnimalRequest.Enclosure).FirstOrDefault();
+            if (enclosures.Capacity <= enclosures.Count)
+            {
+                throw new Exception("Enclosure Capacity Already Reached");
+            }
+            var insertAnimal = _context.Animals.Add(new Animal
+            {
+                Name = addAnimalRequest.Name,
+
+                DateOfBirth = addAnimalRequest.DateOfBirth,
+
+                DateAcquired = addAnimalRequest.DateAquired,
+
+                Sex = addAnimalRequest.Sex,
+
+                Enclosure = addAnimalRequest.Enclosure,
+
+                Species = addAnimalRequest.Species
+            });
+        }
+
         public IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest)
         {
             var ageRange = FilterAgeRange(searchRequest.FilterAge);
