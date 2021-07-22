@@ -44,18 +44,14 @@ namespace ZooManagement.Repositories
 
         public string AddAnimal(AddAnimalRequest addAnimalRequest)
         {
-            var enclosure = _context.Enclosures
-                .Where(e => e.Type == addAnimalRequest.Enclosure)
-                .Include(e => e.Animals)
-                .FirstOrDefault();
+            var enclosure = GetEnclosureByType(addAnimalRequest.Enclosure);
 
             if (enclosure.Capacity <= enclosure.Animals.Count)
             {
                 throw new Exception("Enclosure Capacity Already Reached");
             }
 
-            var existingSpecies = _context.Species
-                .Where(s => s.Type == addAnimalRequest.Species).FirstOrDefault();
+            var existingSpecies = GetSpeciesByType(addAnimalRequest.Species);
 
             // Need to add in validation to make sure species exists otherwise we might not get back an object and need
             // to create one which potentially involves creating a classificaiton. 
@@ -72,6 +68,65 @@ namespace ZooManagement.Repositories
             _context.SaveChanges();
             return "Animal Successfully added to Database";
         }
+
+        public Enclosure GetEnclosureByType(EnclosureType enclosureType)
+        {
+           return _context.Enclosures
+                .Where(e => e.Type == enclosureType)
+                .Include(e => e.Animals)
+                .FirstOrDefault();
+        }
+
+        public void CreateEnclosureByType(EnclosureType enclosureType)
+        {
+            var checkExists = _context.Enclosures.Where(e => e.Type == enclosureType);
+            if (checkExists != null)
+            {
+                throw new Exception($"Enclosure: {enclosureType} already existis in the Zoo.db database. Enclosure not added to db.");
+            }
+            _context.Enclosures.Add(new Enclosure
+            {
+                Type = enclosureType,
+                Capacity = EnclosureDictionary.keyValues[enclosureType]
+            });
+            _context.SaveChanges();
+        }
+
+        public Species GetSpeciesByType(string speciesType)
+        {
+            return _context.Species
+                .Where(s => s.Type == speciesType).FirstOrDefault();
+        }
+        
+        public void CreateSpecies(string speciesType, Classification classification)
+        {
+            var checkExists = _context.Species.Where(s => s.Type == speciesType);
+            if (checkExists != null)
+            {
+                throw new Exception($"The Species {speciesType} already existis in the Zoo.db database. Species not added to db.");
+            }
+            _context.Species.Add(new Species
+            {
+                Type = speciesType,
+                Classification = classification
+            }) ;
+            _context.SaveChanges();
+        }
+
+        public void CreateClassificationByType(ClassificationType classificationType)
+        {
+            var checkExists = _context.Classifications.Where(c => c.Type == classificationType);
+            if (checkExists != null)
+            {
+                throw new Exception($"Classification {classificationType} already existis in the Zoo.db database. Classification not added to db.");
+            }
+            _context.Classifications.Add(new Classification
+            {
+                Type = classificationType
+            });
+            _context.SaveChanges();
+        }
+
 
         public IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest)
         {
