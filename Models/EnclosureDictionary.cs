@@ -7,7 +7,7 @@ namespace ZooManagement.Models
 {
     public static class EnclosureDictionary
     {
-        public static  Dictionary<EnclosureType, int> keyValues = new Dictionary<EnclosureType, int>()
+        public static  Dictionary<EnclosureType, int> KeyValues = new Dictionary<EnclosureType, int>()
         {
             {EnclosureType.Lion, 10},
             {EnclosureType.Giraffe, 6},

@@ -148,7 +148,7 @@ namespace ZooManagement.Data
             return new Enclosure
             {
                 Type = type,
-                Capacity = EnclosureDictionary.keyValues[type]
+                Capacity = EnclosureDictionary.KeyValues[type]
             };
         }
 
