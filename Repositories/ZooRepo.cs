@@ -158,22 +158,22 @@ namespace ZooManagement.Repositories
             return new List<DateTime> { youngestAgeDate, oldestAgeDate };
         }
 
-        public IEnumerable<Animal> OrderAnimals(IEnumerable<Animal> animals, bool filterOrderDescending, string filterOrderProperty)
+        public IEnumerable<Animal> OrderAnimals(IEnumerable<Animal> animals, bool filterOrderDescending, Order filterOrderProperty)
         {
             if (filterOrderDescending == false)
             {
                 switch (filterOrderProperty)
                 {
-                    case "DateAcquired":
+                    case Order.DateAcquired:
                         animals = animals.OrderBy(a => a.DateAcquired);
                         break;
-                    case "Classification":
+                    case Order.Classification:
                         animals = animals.OrderBy(a => a.Species.Classification.Type.ToString());
                         break;
-                    case "AnimalName":
+                    case Order.AnimalName:
                         animals = animals.OrderBy(a => a.Name);
                         break;
-                    case "Enclosure":
+                    case Order.Enclosure:
                         animals = animals.OrderBy(a => a.Enclosure.Type.ToString());
                         break;
                     default:
@@ -185,16 +185,16 @@ namespace ZooManagement.Repositories
             {
                 switch (filterOrderProperty)
                 {
-                    case "DateAcquired":
+                    case Order.DateAcquired:
                         animals = animals.OrderByDescending(a => a.DateAcquired);
                         break;
-                    case "Classification":
+                    case Order.Classification:
                         animals = animals.OrderByDescending(a => a.Species.Classification.Type.ToString());
                         break;
-                    case "AnimalName":
+                    case Order.AnimalName:
                         animals = animals.OrderByDescending(a => a.Name);
                         break;
-                    case "Enclosure":
+                    case Order.Enclosure:
                         animals = animals.OrderByDescending(a => a.Enclosure.Type.ToString());
                         break;
                     default:

@@ -16,7 +16,7 @@ namespace ZooManagement.Request
         public string FilterName { get; set; } = "All";
         public EnclosureType? FilterEnclosure { get; set; }
         public DateTime FilterAquired { get; set; } = default(DateTime);
-        public string FilterOrderProperty { get; set; } = "SpeciesName";
+        public Order FilterOrderProperty { get; set; } = Order.SpeciesName;
         public bool FilterOrderDesending { get; set; } = false;
     }
 }
