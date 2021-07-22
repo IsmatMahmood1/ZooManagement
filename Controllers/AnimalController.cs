@@ -25,7 +25,7 @@ namespace ZooManagement.Controllers
         [HttpGet("{id}")]
         public AnimalApi Get(int id)
         {
-            var animal= _zooRepo.SearchAnimalById(id);
+            var animal= _zooRepo.GetAnimalById(id);
             return new AnimalApi(animal);
         }
 

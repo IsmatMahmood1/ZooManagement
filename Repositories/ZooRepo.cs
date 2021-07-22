@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using ZooManagement.Models;
 using ZooManagement.Models.Database;
 using ZooManagement.Repositories;
@@ -12,22 +13,30 @@ namespace ZooManagement.Repositories
 {
     public interface IZooRepo
     {
-        Animal SearchAnimalById(int id);
+        Animal GetAnimalById(int id);
         IEnumerable<string> GetAllSpecies();
         string AddAnimal(AddAnimalRequest addAnimalRequest);
+        Enclosure GetEnclosureByType(EnclosureType enclosureType);
+        Enclosure CreateAndReturnEnclosureByType(EnclosureType enclosureType);
+        Species GetSpeciesByType(string speciesType);
+        Species CreateAndReturnSpecies(string speciesType, ClassificationType classificationType);
+        Classification GetClassificationByType(ClassificationType classificationType);
+        Classification CreateAndReturnClassificationByType(ClassificationType classificationType);
         IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest);
     }
 
     public class ZooRepo : IZooRepo
     {
+        private readonly ILogger<ZooRepo> _logger;
         private readonly ZooDbContext _context;
 
-        public ZooRepo(ZooDbContext context)
+        public ZooRepo(ILogger<ZooRepo> logger,ZooDbContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
-        public Animal SearchAnimalById(int id)
+        public Animal GetAnimalById(int id)
         {
             return _context.Animals
                 .Where(a => a.Id == id)
@@ -171,7 +180,7 @@ namespace ZooManagement.Repositories
                 .Take(searchRequest.PageSize);
         }
 
-        public IList<DateTime> GetFilterAgeRange(int? age)
+        private IList<DateTime> GetFilterAgeRange(int? age)
         {
             var calcAge = age ?? -1;
             var today = DateTime.Now;
@@ -182,7 +191,7 @@ namespace ZooManagement.Repositories
             return new List<DateTime> { youngestAgeDate, oldestAgeDate };
         }
 
-        public IEnumerable<Animal> OrderAnimals(IEnumerable<Animal> animals, bool? filterOrderDescending, Order? filterOrderProperty)
+        private IEnumerable<Animal> OrderAnimals(IEnumerable<Animal> animals, bool? filterOrderDescending, Order? filterOrderProperty)
         {
             if (filterOrderDescending == false)
             {
@@ -198,7 +207,7 @@ namespace ZooManagement.Repositories
                         animals = animals.OrderBy(a => a.Name);
                         break;
                     case Order.Enclosure:
-                        animals = animals.OrderBy(a => a.Enclosure.Type.ToString());
+                        animals = animals.OrderBy(a => a.Enclosure.Type.ToString()).ThenBy(a=>a.Name);
                         break;
                     default:
                         animals = animals.OrderBy(a => a.Species.Type.ToString());
@@ -219,7 +228,7 @@ namespace ZooManagement.Repositories
                         animals = animals.OrderByDescending(a => a.Name);
                         break;
                     case Order.Enclosure:
-                        animals = animals.OrderByDescending(a => a.Enclosure.Type.ToString());
+                        animals = animals.OrderByDescending(a => a.Enclosure.Type.ToString()).ThenBy(a => a.Name);
                         break;
                     default:
                         animals = animals.OrderByDescending(a => a.Species.Type.ToString());
