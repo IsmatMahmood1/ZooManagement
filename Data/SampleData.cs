@@ -10,9 +10,16 @@ namespace ZooManagement.Data
     {
         private static readonly List<ClassificationType> classificationType = new List<ClassificationType> { ClassificationType.Mammal, ClassificationType.Bird, ClassificationType.Fish, ClassificationType.Reptile,
             ClassificationType.Insect, ClassificationType.Invertebrate };
-        private static readonly EnclosureType enclosureType = EnclosureType.Lion;
         private static readonly List<string> speciesType = new List<string> { "Lion", "Hippo", "Gorilla", "Spider", "Penguin", "Octopus", "Zebra", "Bear", "Bat", "Parrot" };
-
+        public static readonly Dictionary<EnclosureType, string> _enclosuresAndZooKeepers = new Dictionary<EnclosureType, string>()
+        {
+            {EnclosureType.Lion, "Dave"},
+            {EnclosureType.Giraffe, "Miranda"},
+            {EnclosureType.Hippo, "Joe"},
+            {EnclosureType.Aviary, "Sandra"},
+            {EnclosureType.Reptile, "Hab"},
+            {EnclosureType.Invertebrate, "Joao"}
+        };
         private static readonly IList<IList<string>> animal = new List<IList<string>>
             {
                 new List<string> {"George", DateTime.Now.ToString(), DateTime.Now.ToString() },
@@ -119,10 +126,10 @@ namespace ZooManagement.Data
 
         public static IEnumerable<Animal> GetAnimals()
         {
-            var enclosure = GenerateEnclosure(enclosureType);
+            var enclosures = GenerateEnclosures(_enclosuresAndZooKeepers);
             var classifications = classificationType.Select(ct => GenerateClassification(ct)).ToList();
             var species = speciesType.Select(st => GenerateSpecies(st, classifications)).ToList();
-            return Enumerable.Range(0, 100).Select(i => CreateRandomAnimal(i, species, enclosure));
+            return CreateAllRandomAnimals(species, enclosures);
         }
 
         public static Species GenerateSpecies(string type, IList<Classification> classifications)
@@ -142,26 +149,41 @@ namespace ZooManagement.Data
             };
         }
 
-        public static Enclosure GenerateEnclosure(EnclosureType type)
+        public static List<Enclosure> GenerateEnclosures(Dictionary<EnclosureType, string> dictionary)
         {
-            return new Enclosure
+            List<Enclosure> enclosures = new List<Enclosure>();
+            foreach (var pair in dictionary)
             {
-                Type = type,
-                Capacity = EnclosureDictionary.KeyValues[type]
-            };
+                var zooKeeper = new ZooKeeper()
+                {
+                    Name = pair.Value
+                };
+                enclosures.Add(new Enclosure
+                {
+                    Type = pair.Key,
+                    Capacity = EnclosureDictionary.KeyValues[pair.Key],
+                    ZooKeepers = new List<ZooKeeper> { zooKeeper }
+                });
+            }
+            return enclosures;
         }
 
-        private static Animal CreateRandomAnimal(int index, IList<Species> species, Enclosure enclosure)
+        private static List<Animal> CreateAllRandomAnimals(IList<Species> species, IList<Enclosure> enclosures)
         {
-            return new Animal
+            List<Animal> animals = new List<Animal>();
+            foreach (var row in animal)
             {
-                Name = animal[index][0],
-                DateOfBirth = DateTime.Parse(animal[index][1]),
-                DateAcquired = DateTime.Parse(animal[index][2]),
-                Sex = (Sex)new Random().Next(1, 3),
-                Species = species[new Random().Next(9)],
-                Enclosure = enclosure
-            };
+                animals.Add(new Animal
+                {
+                    Name = row[0],
+                    DateOfBirth = DateTime.Parse(row[1]),
+                    DateAcquired = DateTime.Parse(row[2]),
+                    Sex = (Sex)new Random().Next(1, 3),
+                    Species = species[new Random().Next(9)],
+                    Enclosure = enclosures[new Random().Next(5)]
+                });
+            }
+            return animals;
         }
     }
 }
