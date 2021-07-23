@@ -22,19 +22,19 @@ namespace ZooManagement.Controllers
         [HttpGet("{id}")]
         public ZooKeeperApi Get(int id)
         {
-            //var zooKeeper = _zooRepo.GetZooKeeperById(id);
-            //return new ZooKeeperApi(zooKeeper);
-            return null;
+            var zooKeeper = _zooRepo.GetZooKeeperById(id);
+            return new ZooKeeperApi(zooKeeper);
         }
 
         [HttpPost("add")]
         public string Add([FromQuery] AddZooKeeperRequest addZooKeeperRequest)
         {
-            //var AddSuccess = _zooRepo.AddAnimal(addAnimalRequest);
-            //return AddSuccess;
+            var AddSuccess = _zooRepo.AddZooKeeper(addZooKeeperRequest);
+            return AddSuccess;
 
-            return null;
         }
+
+
 
     }
 }

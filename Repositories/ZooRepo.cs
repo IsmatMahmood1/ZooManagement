@@ -21,6 +21,8 @@ namespace ZooManagement.Repositories
         Classification GetClassificationByType(ClassificationType classificationType);
         Classification CreateAndReturnClassificationByType(ClassificationType classificationType);
         IEnumerable<Animal> SearchAnimalsByFilters(SearchRequest searchRequest);
+        string AddZooKeeper(AddZooKeeperRequest addZooKeeperRequest);
+        ZooKeeper GetZooKeeperById(int id);
     }
 
     public class ZooRepo : IZooRepo
@@ -71,6 +73,7 @@ namespace ZooManagement.Repositories
             _context.SaveChanges();
             return "Animal Successfully added to Zoo.db";
         }
+
 
         public Enclosure GetEnclosureByType(EnclosureType enclosureType)
         {
@@ -232,5 +235,35 @@ namespace ZooManagement.Repositories
             }
             return animals;
         }
+
+        public string AddZooKeeper(AddZooKeeperRequest addZooKeeperRequest)
+        {
+            var enclosures = new List<Enclosure>();
+            foreach (var enclosureType in addZooKeeperRequest.EnclosureTypes)
+            {
+                enclosures.Add(GetEnclosureByType(enclosureType) ?? CreateAndReturnEnclosureByType(enclosureType));
+
+            }      
+            
+            _context.ZooKeepers.Add(new ZooKeeper
+            {
+                Name = addZooKeeperRequest.Name,
+                Enclosures = enclosures,
+              
+            });
+            _context.SaveChanges();
+            return "Zoo Keeper Successfully added to Zoo.db";
+        }
+        public ZooKeeper GetZooKeeperById(int id)
+        {
+            return _context.ZooKeepers
+                .Where(z => z.Id == id)
+                .Include(z => z.Enclosures)
+                .ThenInclude(e => e.Animals)
+                .ThenInclude(a => a.Species)
+                .ThenInclude(s => s.Classification)
+                .FirstOrDefault();
+        }
+
     }
 }

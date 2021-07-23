@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using ZooManagement.Models;
 
 namespace ZooManagement.Request
 {
@@ -8,6 +9,6 @@ namespace ZooManagement.Request
         [Required]
         public string Name { get; set; }
         [Required]
-        public IEnumerable<int> EnclosureIds { get; set; }
+        public List<EnclosureType> EnclosureTypes{ get; set; }
     }
 }
