@@ -11,7 +11,7 @@ namespace ZooManagement.Request
         [Required]
         public DateTime DateOfBirth { get; set; }
         [Required]
-        public  Sex Sex { get; set; }
+        public Sex Sex { get; set; }
         [Required]
         public ClassificationType Classification { get; set; }
         [Required]

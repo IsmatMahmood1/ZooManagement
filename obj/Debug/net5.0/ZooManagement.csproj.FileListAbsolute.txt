@@ -108,3 +108,5 @@ C:\Users\ismmah\Training\CSharp\ZooManagement\obj\Debug\net5.0\ZooManagement.dll
 C:\Users\ismmah\Training\CSharp\ZooManagement\obj\Debug\net5.0\ref\ZooManagement.dll
 C:\Users\ismmah\Training\CSharp\ZooManagement\obj\Debug\net5.0\ZooManagement.pdb
 C:\Users\ismmah\Training\CSharp\ZooManagement\obj\Debug\net5.0\ZooManagement.genruntimeconfig.cache
+C:\TechSwitchTraining\Zoo Management_Ismat\ZooManagement\bin\Debug\net5.0\Humanizer.dll
+C:\TechSwitchTraining\Zoo Management_Ismat\ZooManagement\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll

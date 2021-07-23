@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ZooManagement.Models.Database;
 
 namespace ZooManagement.Models.Api
@@ -36,7 +33,10 @@ namespace ZooManagement.Models.Api
         {
             var today = DateTime.Today;
             var age = today.Year - birthdate.Year;
-            if (birthdate.Date > today.AddYears(-age)) age--;
+            if (birthdate.Date > today.AddYears(-age))
+            {
+                age--;
+            }
             return age;
         }
     }
