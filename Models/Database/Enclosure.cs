@@ -8,5 +8,6 @@ namespace ZooManagement.Models.Database
         public EnclosureType Type { get; set; }
         public int Capacity { get; set; }
         public List<Animal> Animals { get; set; }
+        public List<ZooKeeper> ZooKeepers { get; set; }
     }
 }
