@@ -15,6 +15,7 @@ namespace ZooManagement.Request
         public DateTime? FilterAcquired { get; set; }
         public Order? FilterOrderProperty { get; set; }
         public bool? FilterOrderDesending { get; set; }
+        public int? FilterZooKeeperId { get; set; }
     }
 }
 

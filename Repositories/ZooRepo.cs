@@ -41,6 +41,7 @@ namespace ZooManagement.Repositories
             return _context.Animals
                 .Where(a => a.Id == id)
                 .Include(e => e.Enclosure)
+                .ThenInclude(z => z.ZooKeepers)
                 .Include(s => s.Species)
                 .ThenInclude(c => c.Classification)
                 .FirstOrDefault();
@@ -169,9 +170,11 @@ namespace ZooManagement.Repositories
                 .Where(a => searchRequest.FilterAcquired == null || a.DateAcquired == searchRequest.FilterAcquired)
                 .Where(a => searchRequest.FilterClassification == null || a.Species.Classification.Type == searchRequest.FilterClassification)
                 .Where(a => searchRequest.FilterEnclosure == null || a.Enclosure.Type == searchRequest.FilterEnclosure)
+                .Where(a => searchRequest.FilterZooKeeperId == null || a.Enclosure.ZooKeepers.Select(z => z.Id == searchRequest.FilterZooKeeperId).Contains(true))
                 .Include(a => a.Species)
                 .ThenInclude(s => s.Classification)
-                .Include(a => a.Enclosure);
+                .Include(a => a.Enclosure)
+                .ThenInclude(z =>z.ZooKeepers);
 
             return OrderAnimals(animals, searchRequest.FilterOrderDesending, searchRequest.FilterOrderProperty)
                 .Skip((searchRequest.Page - 1) * searchRequest.PageSize)

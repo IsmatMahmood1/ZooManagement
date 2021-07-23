@@ -7,5 +7,6 @@
         Classification,
         AnimalName,
         Enclosure,
+        ZooKeeper,
     }
 }

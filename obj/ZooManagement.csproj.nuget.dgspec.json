@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\TechSwitchTraining\\Zoo Management_Ismat\\ZooManagement\\ZooManagement.csproj": {}
+    "C:\\Users\\ismmah\\Training\\CSharp\\ZooManagement\\ZooManagement.csproj": {}
   },
   "projects": {
-    "C:\\TechSwitchTraining\\Zoo Management_Ismat\\ZooManagement\\ZooManagement.csproj": {
+    "C:\\Users\\ismmah\\Training\\CSharp\\ZooManagement\\ZooManagement.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\TechSwitchTraining\\Zoo Management_Ismat\\ZooManagement\\ZooManagement.csproj",
+        "projectUniqueName": "C:\\Users\\ismmah\\Training\\CSharp\\ZooManagement\\ZooManagement.csproj",
         "projectName": "ZooManagement",
-        "projectPath": "C:\\TechSwitchTraining\\Zoo Management_Ismat\\ZooManagement\\ZooManagement.csproj",
-        "packagesPath": "C:\\Users\\kenall\\.nuget\\packages\\",
-        "outputPath": "C:\\TechSwitchTraining\\Zoo Management_Ismat\\ZooManagement\\obj\\",
+        "projectPath": "C:\\Users\\ismmah\\Training\\CSharp\\ZooManagement\\ZooManagement.csproj",
+        "packagesPath": "C:\\Users\\ismmah\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ismmah\\Training\\CSharp\\ZooManagement\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\kenall\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ismmah\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

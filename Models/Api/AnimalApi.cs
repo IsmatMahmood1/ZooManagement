@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using ZooManagement.Models.Database;
 
 namespace ZooManagement.Models.Api
@@ -16,6 +18,8 @@ namespace ZooManagement.Models.Api
         public string SpeciesName { get; set; }
         public string SpeciesClassification { get; set; }
 
+        public IEnumerable<int> ZooKeeperId { get; set; }
+
         public AnimalApi(Animal animalDb)
         {
             Id = animalDb.Id;
@@ -28,6 +32,7 @@ namespace ZooManagement.Models.Api
             DateAcquired = animalDb.DateAcquired;
             EnclosureId = animalDb.Enclosure.Id;
             EnclosureType = animalDb.Enclosure.Type.ToString();
+            ZooKeeperId = animalDb.Enclosure.ZooKeepers.Select(z => z.Id);
         }
         private int GetAge(DateTime birthdate)
         {
