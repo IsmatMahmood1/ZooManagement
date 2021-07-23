@@ -1,12 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using ZooManagement.Models;
 using ZooManagement.Models.Database;
-using ZooManagement.Repositories;
 using ZooManagement.Request;
 
 namespace ZooManagement.Repositories
@@ -30,7 +28,7 @@ namespace ZooManagement.Repositories
         private readonly ILogger<ZooRepo> _logger;
         private readonly ZooDbContext _context;
 
-        public ZooRepo(ILogger<ZooRepo> logger,ZooDbContext context)
+        public ZooRepo(ILogger<ZooRepo> logger, ZooDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -46,10 +44,7 @@ namespace ZooManagement.Repositories
                 .FirstOrDefault();
         }
 
-        public IEnumerable<string> GetAllSpecies()
-        {
-            return _context.Species.Select(s => s.Type);
-        }
+        public IEnumerable<string> GetAllSpecies() => _context.Species.Select(s => s.Type);
 
         public string AddAnimal(AddAnimalRequest addAnimalRequest)
         {
@@ -109,7 +104,7 @@ namespace ZooManagement.Repositories
         {
             return _context.Species
                 .Where(s => s.Type == speciesType)
-                .Include(s=> s.Classification)
+                .Include(s => s.Classification)
                 .FirstOrDefault();
         }
 
@@ -207,7 +202,7 @@ namespace ZooManagement.Repositories
                         animals = animals.OrderBy(a => a.Name);
                         break;
                     case Order.Enclosure:
-                        animals = animals.OrderBy(a => a.Enclosure.Type.ToString()).ThenBy(a=>a.Name);
+                        animals = animals.OrderBy(a => a.Enclosure.Type.ToString()).ThenBy(a => a.Name);
                         break;
                     default:
                         animals = animals.OrderBy(a => a.Species.Type.ToString());

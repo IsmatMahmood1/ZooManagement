@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ZooManagement.Models;
 
 namespace ZooManagement.Request
@@ -10,9 +7,9 @@ namespace ZooManagement.Request
     {
         public int Page { get; set; } = 1;
         public int PageSize { get; set; } = 10;
-        public string FilterSpecies { get; set; } 
+        public string FilterSpecies { get; set; }
         public ClassificationType? FilterClassification { get; set; }
-        public int? FilterAge { get; set; } 
+        public int? FilterAge { get; set; }
         public string FilterName { get; set; }
         public EnclosureType? FilterEnclosure { get; set; }
         public DateTime? FilterAcquired { get; set; }

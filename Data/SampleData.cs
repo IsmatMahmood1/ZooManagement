@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ZooManagement.Models.Database;
-using ZooManagement.Data;
 using ZooManagement.Models;
+using ZooManagement.Models.Database;
 
 namespace ZooManagement.Data
 {
     public class SampleData
     {
-        private static List<ClassificationType> classificationType = new List<ClassificationType> { ClassificationType.Mammal, ClassificationType.Bird, ClassificationType.Fish, ClassificationType.Reptile, 
+        private static readonly List<ClassificationType> classificationType = new List<ClassificationType> { ClassificationType.Mammal, ClassificationType.Bird, ClassificationType.Fish, ClassificationType.Reptile,
             ClassificationType.Insect, ClassificationType.Invertebrate };
-        private static  EnclosureType enclosureType = EnclosureType.Lion;
-        private static List<string> speciesType = new List<string> { "Lion", "Hippo", "Gorilla", "Spider", "Penguin", "Octopus", "Zebra", "Bear", "Bat", "Parrot" };
+        private static readonly EnclosureType enclosureType = EnclosureType.Lion;
+        private static readonly List<string> speciesType = new List<string> { "Lion", "Hippo", "Gorilla", "Spider", "Penguin", "Octopus", "Zebra", "Bear", "Bat", "Parrot" };
 
-        private static IList<IList<string>> animal = new List<IList<string>>
+        private static readonly IList<IList<string>> animal = new List<IList<string>>
             {
                 new List<string> {"George", DateTime.Now.ToString(), DateTime.Now.ToString() },
                 new List<string> {"Bob", DateTime.Now.ToString(), DateTime.Now.ToString() },
@@ -121,9 +120,9 @@ namespace ZooManagement.Data
         public static IEnumerable<Animal> GetAnimals()
         {
             var enclosure = GenerateEnclosure(enclosureType);
-            var classifications =  classificationType.Select(ct => GenerateClassification(ct)).ToList();
+            var classifications = classificationType.Select(ct => GenerateClassification(ct)).ToList();
             var species = speciesType.Select(st => GenerateSpecies(st, classifications)).ToList();
-            return Enumerable.Range(0, 100).Select( i => CreateRandomAnimal(i, species, enclosure));
+            return Enumerable.Range(0, 100).Select(i => CreateRandomAnimal(i, species, enclosure));
         }
 
         public static Species GenerateSpecies(string type, IList<Classification> classifications)
@@ -159,12 +158,12 @@ namespace ZooManagement.Data
                 Name = animal[index][0],
                 DateOfBirth = DateTime.Parse(animal[index][1]),
                 DateAcquired = DateTime.Parse(animal[index][2]),
-                Sex = (Sex) new Random().Next(1,3),
+                Sex = (Sex)new Random().Next(1, 3),
                 Species = species[new Random().Next(9)],
                 Enclosure = enclosure
             };
         }
-    }       
+    }
 }
-       
+
 

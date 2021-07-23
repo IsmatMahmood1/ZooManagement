@@ -5,7 +5,7 @@
         SpeciesName = 1,
         DateAcquired,
         Classification,
-        AnimalName, 
+        AnimalName,
         Enclosure,
     }
 }

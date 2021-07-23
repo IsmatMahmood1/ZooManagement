@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ZooManagement.Models
 {
     public static class EnclosureDictionary
     {
-        public static  Dictionary<EnclosureType, int> KeyValues = new Dictionary<EnclosureType, int>()
+        public static Dictionary<EnclosureType, int> KeyValues = new Dictionary<EnclosureType, int>()
         {
             {EnclosureType.Lion, 10},
             {EnclosureType.Giraffe, 6},

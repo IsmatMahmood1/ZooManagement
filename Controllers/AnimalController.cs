@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using ZooManagement.Models.Api;
@@ -25,7 +24,7 @@ namespace ZooManagement.Controllers
         [HttpGet("{id}")]
         public AnimalApi Get(int id)
         {
-            var animal= _zooRepo.GetAnimalById(id);
+            var animal = _zooRepo.GetAnimalById(id);
             return new AnimalApi(animal);
         }
 
@@ -38,14 +37,11 @@ namespace ZooManagement.Controllers
 
         [Route("species")]
         [HttpGet]
-        public IEnumerable<string> GetSpecies()
-        {
-            return _zooRepo.GetAllSpecies();
-        }
-        
+        public IEnumerable<string> GetSpecies() => _zooRepo.GetAllSpecies();
+
         [Route("search")]
         [HttpGet]
-        public IEnumerable<AnimalApi> FilteredSearchAnimals ([FromQuery] SearchRequest searchRequest)
+        public IEnumerable<AnimalApi> FilteredSearchAnimals([FromQuery] SearchRequest searchRequest)
         {
             var Animals = _zooRepo.SearchAnimalsByFilters(searchRequest);
 
